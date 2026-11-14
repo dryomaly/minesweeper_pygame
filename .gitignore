@@ -1,0 +1,5 @@
+.idea/
+.DS_Store
+__pycache__/
+PAI_2026.xlsx
+training.py
