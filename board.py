@@ -1,0 +1,47 @@
+import pygame as pg
+from const import WIDTH, HEIGHT
+
+
+class Cell:
+    def __init__(self, x, y,
+                 cell_size,
+                 radius=3,
+                 ):
+        self.rect = pg.Rect(x, y, cell_size, cell_size) # ХИТБОКС 
+        self.is_mined = False
+        self.mines_around = 0
+        self.cell_state = 'closed'
+        self.radius = radius
+
+    def draw(self, screen):
+        if self.cell_state == 'opened':
+            cell_color = pg.Color('LemonChiffon')
+        else:
+            cell_color = pg.Color('ForestGreen')
+
+        visible_rect = self.rect.inflate(-2, -2) # видимая часть хитбокса 
+        pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)
+
+
+class Board:
+    def __init__(self, rows, cols, cell_size):
+        self.rows = rows
+        self.cols = cols
+        self.cell_size = cell_size
+
+        self.x = (WIDTH - cols * cell_size) // 2 # Ширина экрана - Ширина поля
+        self.y = (HEIGHT - rows * cell_size) // 2 # Высота экрана - Высота поля
+
+        self.cells = []
+        for row in range(rows):
+            line = []
+            for col in range(cols):
+                cell_x = self.x + col * cell_size
+                cell_y = self.y + row * cell_size
+                line.append(Cell(cell_x, cell_y, cell_size))
+            self.cells.append(line)
+
+    def draw(self, screen):
+        for line in self.cells:
+            for cell in line:
+                cell.draw(screen)
