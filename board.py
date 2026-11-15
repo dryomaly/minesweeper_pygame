@@ -13,10 +13,14 @@ class Cell:
         self.cell_state = 'closed'
         self.radius = radius
 
+    def open(self):
+        if self.cell_state == 'closed':
+            self.cell_state = 'opened'
+
     def draw(self, screen):
         if self.cell_state == 'opened':
             cell_color = pg.Color('LemonChiffon')
-        else:
+        elif self.cell_state == 'closed':
             cell_color = pg.Color('ForestGreen')
 
         visible_rect = self.rect.inflate(-2, -2) # видимая часть хитбокса 
@@ -40,6 +44,15 @@ class Board:
                 cell_y = self.y + row * cell_size
                 line.append(Cell(cell_x, cell_y, cell_size))
             self.cells.append(line)
+
+    def get_cell(self, pos):
+        x, y = pos
+        col = (x - self.x) // self.cell_size
+        row = (y - self.y) // self.cell_size
+
+        if 0 <= row < self.rows and 0 <= col < self.cols:
+            return self.cells[row][col]
+        return None
 
     def draw(self, screen):
         for line in self.cells:
