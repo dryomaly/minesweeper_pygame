@@ -84,10 +84,18 @@ while True:
                 elif button_settings.is_clicked(ev.pos):
                     screen_state = 'settings'
 
-            elif screen_state in ('settings', 'game'):
+            elif screen_state == 'game':
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
+                else:
+                    cell = medium_game_board.get_cell(ev.pos)
+                    if cell:
+                        cell.open()
 
+            elif screen_state == 'settings':
+                if button_back_menu.is_clicked(ev.pos):
+                    screen_state = 'menu'
+                
     if screen_state == 'menu':
         # ФОН
         screen.blit(bg_image_1, (0, 0))
