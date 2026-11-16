@@ -19,7 +19,9 @@ class Cell:
             self.cell_state = 'opened'
 
     def draw(self, screen):
-        if self.cell_state == 'opened':
+        if self.cell_state == 'opened' and self.is_mined == True:
+            cell_color = pg.Color('Red')
+        elif self.cell_state == 'opened':
             cell_color = pg.Color('LemonChiffon')
         elif self.cell_state == 'closed':
             cell_color = pg.Color('ForestGreen')
