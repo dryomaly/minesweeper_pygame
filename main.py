@@ -15,9 +15,9 @@ def load_img(path, size=None):
 pg.display.set_caption('Сапёрность')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 
-easy_game_board = Board(8, 8, 40)
-medium_game_board = Board(15, 15, 40)
-hard_game_board = Board(20, 20, 40)
+easy_game_board = Board(8, 8, 40, 10)
+medium_game_board = Board(15, 15, 40, 35)
+# hard_game_board = Board(20, 20, 40) # Выходит за рамки - переделать
 
 overlay = pg.Surface((WIDTH, HEIGHT))
 overlay.fill(BLACK)
@@ -54,7 +54,7 @@ button_back_menu = Button(20, 20, 120, 60,
                      pg.font.SysFont('Arial', 28, True))
 
 game_name_image = load_img("Images/GAME_NAME.png")
-w, h = game_name_image.get_size()
+# w, h = game_name_image.get_size()
 game_name_image = pg.transform.smoothscale(game_name_image, (600, 200))
 game_name_rect = game_name_image.get_rect(midbottom=(WIDTH // 2, button_play.rect.top - 60))
 
