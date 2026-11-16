@@ -28,11 +28,13 @@ class Cell:
 
 
 class Board:
-    def __init__(self, rows, cols, cell_size):
+    def __init__(self, rows, cols, cell_size, mines):
         self.rows = rows
         self.cols = cols
         self.cell_size = cell_size
+        self.mines = mines
 
+        # отступы по ширине и высоте
         self.x = (WIDTH - cols * cell_size) // 2 # Ширина экрана - Ширина поля
         self.y = (HEIGHT - rows * cell_size) // 2 # Высота экрана - Высота поля
 
