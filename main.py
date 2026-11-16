@@ -88,7 +88,7 @@ while True:
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
                 else:
-                    cell = medium_game_board.get_cell(ev.pos)
+                    cell = medium_game_board.clicked_cell(ev.pos)
                     if cell:
                         cell.open()
 
