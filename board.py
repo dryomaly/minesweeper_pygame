@@ -1,4 +1,5 @@
 import pygame as pg
+import random
 from const import WIDTH, HEIGHT
 
 
@@ -47,7 +48,19 @@ class Board:
                 line.append(Cell(cell_x, cell_y, cell_size))
             self.cells.append(line)
 
-    def get_cell(self, pos):
+        self.placing_mines()
+
+    def placing_mines(self):
+        all_cells = []
+        for line in self.cells:
+            for cell in line:
+                all_cells.append(cell)
+
+        mined_cells = random.sample(all_cells, self.mines)
+        for cell in mined_cells:
+            cell.is_mined = True
+
+    def clicked_cell(self, pos):
         x, y = pos
         col = (x - self.x) // self.cell_size
         row = (y - self.y) // self.cell_size
