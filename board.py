@@ -51,6 +51,7 @@ class Board:
             self.cells.append(line)
 
         self.placing_mines()
+        self.count_mines_around()
 
     def placing_mines(self):
         all_cells = []
@@ -61,6 +62,24 @@ class Board:
         mined_cells = random.sample(all_cells, self.mines)
         for cell in mined_cells:
             cell.is_mined = True
+
+    def count_mines_around(self):
+        for row in range(self.rows):
+            for col in range(self.cols):
+                cell = self.cells[row][col]
+                if cell.is_mined == True:
+                    continue
+
+                num_of_mines_around = 0
+                for nr in (-1, 0, 1):
+                    for nc in (-1, 0, 1):
+                        nrow = row + nr
+                        ncol = col + nc
+                        if 0 <= nrow < self.rows and 0 <= ncol < self.cols:
+                            if self.cells[nrow][ncol].is_mined:
+                                num_of_mines_around += 1
+                cell.mines_around = num_of_mines_around
+
 
     def clicked_cell(self, pos):
         x, y = pos
