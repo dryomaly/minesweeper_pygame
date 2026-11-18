@@ -23,7 +23,6 @@ overlay = pg.Surface((WIDTH, HEIGHT))
 overlay.fill(DARKENING_BG)
 overlay.set_alpha(120)
 
-bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
 
 
 screen_state = 'menu'
@@ -52,6 +51,9 @@ button_back_menu = Button(20, 20, 120, 60,
                      pg.Color('black'),
                      pg.Color('grey'),
                      pg.font.SysFont('Arial', 28, True))
+
+
+bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
 
 game_name_image = load_img("Images/GAME_NAME.png")
 # w, h = game_name_image.get_size()
