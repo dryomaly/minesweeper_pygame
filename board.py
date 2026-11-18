@@ -33,9 +33,9 @@ class Cell:
         if self.cell_state == 'opened' \
                 and self.mines_around > 0 \
                 and self.is_mined == False:
-            self.text = self.font.render(str(self.mines_around), True, CELL_NUMS_COLOR[self.mines_around])
-            self.text_rect = self.text.get_rect(center=self.rect.center)
-            screen.blit(self.text, self.text_rect)
+            text = self.font.render(str(self.mines_around), True, CELL_NUMS_COLOR[self.mines_around])
+            text_rect = text.get_rect(center=self.rect.center)
+            screen.blit(text, text_rect)
 
 
 class Board:
