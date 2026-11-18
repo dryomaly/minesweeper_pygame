@@ -20,7 +20,7 @@ medium_game_board = Board(15, 15, 40, 35)
 # hard_game_board = Board(20, 20, 40) # Выходит за рамки - переделать
 
 overlay = pg.Surface((WIDTH, HEIGHT))
-overlay.fill(BLACK)
+overlay.fill(DARKENING_BG)
 overlay.set_alpha(120)
 
 bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
@@ -107,7 +107,7 @@ while True:
         button_exit.draw(screen)
 
     elif screen_state == 'game':
-        screen.fill(BLACK)
+        screen.fill(PLAY_BG_COLOR)
         # easy_game_board.draw(screen)
         medium_game_board.draw(screen)
         # hard_game_board.draw(screen)    
