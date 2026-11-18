@@ -13,6 +13,8 @@ class Cell:
         self.mines_around = 0
         self.cell_state = 'closed'
         self.radius = radius
+        self.font = pg.font.SysFont('Arial', cell_size // 2, True)
+
 
     def open(self):
         if self.cell_state == 'closed':
@@ -26,8 +28,14 @@ class Cell:
         elif self.cell_state == 'closed':
             cell_color = CLOSED_CELL
 
-        visible_rect = self.rect.inflate(-2, -2) # видимая часть хитбокса 
+        visible_rect = self.rect.inflate(-2, -2) # видимая часть ХИТБОКСА
         pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)
+        if self.cell_state == 'opened' \
+                and self.mines_around > 0 \
+                and self.is_mined == False:
+            self.text = self.font.render(str(self.mines_around), True, CELL_NUMS_COLOR[self.mines_around])
+            self.text_rect = self.text.get_rect(center=self.rect.center)
+            screen.blit(self.text, self.text_rect)
 
 
 class Board:
