@@ -97,7 +97,13 @@ while True:
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
-                
+        elif ev.type == pg.MOUSEBUTTONDOWN and ev.button == 3:
+            if screen_state == 'game':
+                cell = medium_game_board.clicked_cell(ev.pos)
+                if cell:
+                    cell.toggle_flag()
+
+
     if screen_state == 'menu':
         # ФОН
         screen.blit(bg_image_1, (0, 0))
