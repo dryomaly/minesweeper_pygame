@@ -1,6 +1,6 @@
 import pygame as pg
 import random
-from const import WIDTH, HEIGHT
+from const import *
 
 
 class Cell:
@@ -20,11 +20,11 @@ class Cell:
 
     def draw(self, screen):
         if self.cell_state == 'opened' and self.is_mined == True:
-            cell_color = pg.Color('Red')
+            cell_color = MINE_CELL
         elif self.cell_state == 'opened':
-            cell_color = pg.Color('LemonChiffon')
+            cell_color = OPENED_CELL
         elif self.cell_state == 'closed':
-            cell_color = pg.Color('ForestGreen')
+            cell_color = CLOSED_CELL
 
         visible_rect = self.rect.inflate(-2, -2) # видимая часть хитбокса 
         pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)
@@ -79,7 +79,6 @@ class Board:
                             if self.cells[nrow][ncol].is_mined:
                                 num_of_mines_around += 1
                 cell.mines_around = num_of_mines_around
-
 
     def clicked_cell(self, pos):
         x, y = pos
