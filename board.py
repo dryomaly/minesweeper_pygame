@@ -22,12 +22,18 @@ class Cell:
         if self.cell_state == 'closed':
             self.cell_state = 'opened'
 
+    def toggle_flag(self):
+        if self.cell_state == 'closed':
+            self.cell_state = 'flagged'
+        elif self.cell_state == 'flagged':
+            self.cell_state = 'closed'
+    
     def draw(self, screen):
         if self.cell_state == 'opened' and self.is_mined == True:
             cell_color = MINE_CELL
         elif self.cell_state == 'opened':
             cell_color = OPENED_CELL
-        elif self.cell_state == 'closed':
+        elif self.cell_state == 'closed' or self.cell_state == 'flagged':
             cell_color = CLOSED_CELL
 
         visible_rect = self.rect.inflate(-2, -2) # видимая часть ХИТБОКСА
@@ -39,6 +45,10 @@ class Cell:
             text = self.font.render(str(self.mines_around), True, CELL_NUMS_COLOR[self.mines_around])
             text_rect = text.get_rect(center=self.rect.center)
             screen.blit(text, text_rect)
+
+        if self.cell_state == 'flagged':
+            flag_rect = self.flag_image.get_rect(center=visible_rect.center)
+            screen.blit(self.flag_image, flag_rect)
 
 
 class Board:
@@ -53,7 +63,7 @@ class Board:
         self.y = (HEIGHT - rows * cell_size) // 2 # Высота экрана - Высота поля
 
         self.flag_image = pg.image.load("Images/FLAG.png").convert_alpha()
-        self.flag_image = pg.transform.smoothscale(self.flag_image, (cell_size, cell_size))
+        self.flag_image = pg.transform.scale(self.flag_image, (cell_size - 8, cell_size - 8))
 
 
         self.cells = []
