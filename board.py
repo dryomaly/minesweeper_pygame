@@ -6,16 +6,18 @@ from const import *
 class Cell:
     def __init__(self, x, y,
                  cell_size,
+                 flag_image,
                  radius=3,
                  ):
         self.rect = pg.Rect(x, y, cell_size, cell_size) # ХИТБОКС 
         self.is_mined = False
         self.mines_around = 0
         self.cell_state = 'closed'
+        self.flag_image = flag_image
         self.radius = radius
         self.font = pg.font.SysFont('Arial', cell_size // 2, True)
 
-
+    
     def open(self):
         if self.cell_state == 'closed':
             self.cell_state = 'opened'
@@ -30,6 +32,7 @@ class Cell:
 
         visible_rect = self.rect.inflate(-2, -2) # видимая часть ХИТБОКСА
         pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)
+        
         if self.cell_state == 'opened' \
                 and self.mines_around > 0 \
                 and self.is_mined == False:
@@ -49,13 +52,17 @@ class Board:
         self.x = (WIDTH - cols * cell_size) // 2 # Ширина экрана - Ширина поля
         self.y = (HEIGHT - rows * cell_size) // 2 # Высота экрана - Высота поля
 
+        self.flag_image = pg.image.load("Images/FLAG.png").convert_alpha()
+        self.flag_image = pg.transform.smoothscale(self.flag_image, (cell_size, cell_size))
+
+
         self.cells = []
         for row in range(rows):
             line = []
             for col in range(cols):
                 cell_x = self.x + col * cell_size
                 cell_y = self.y + row * cell_size
-                line.append(Cell(cell_x, cell_y, cell_size))
+                line.append(Cell(cell_x, cell_y, cell_size, self.flag_image))
             self.cells.append(line)
 
         self.placing_mines()
