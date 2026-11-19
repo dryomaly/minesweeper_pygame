@@ -51,7 +51,14 @@ button_back_menu = Button(20, 20, 120, 60,
                      '< Меню',
                      pg.Color('black'),
                      pg.Color('grey'),
-                     pg.font.SysFont('Arial', 28, True))
+                     pg.font.SysFont('Arial', 28, True)
+                     )
+button_restart_lost_game = Button((WIDTH - 200) // 2, 500, 200, 65,
+                     'НОВАЯ ИГРА',
+                     BLACK_FONT,
+                     BTN_RESTART_BG,
+                     pg.font.SysFont('Arial', 28, True)
+                     )
 
 
 bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
@@ -99,6 +106,9 @@ while True:
                         if cell.is_mined == True and cell.cell_state == "opened":
                             game_screen_state = "lost"
                             medium_game_board.mark_all_mines_on_lost()
+                elif button_restart_lost_game.is_clicked(ev.pos):
+                    medium_game_board = Board(15, 15, 40, 35)
+                    game_screen_state = 'ongoing'
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
@@ -132,6 +142,7 @@ while True:
             screen.blit(overlay, (0, 0))
             screen.blit(wasted_image, (0, 0))
             button_back_menu.draw(screen)
+            button_restart_lost_game.draw(screen)
 
 
 
