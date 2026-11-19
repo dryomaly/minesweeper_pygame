@@ -53,7 +53,7 @@ button_back_menu = Button(20, 20, 120, 60,
                      pg.Color('grey'),
                      pg.font.SysFont('Arial', 28, True)
                      )
-button_restart_lost_game = Button((WIDTH - 200) // 2, 500, 200, 65,
+button_restart_game = Button((WIDTH - 200) // 2, 500, 200, 65,
                      'НОВАЯ ИГРА',
                      BLACK_FONT,
                      BTN_RESTART_BG,
@@ -64,14 +64,14 @@ button_restart_lost_game = Button((WIDTH - 200) // 2, 500, 200, 65,
 bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
 
 game_name_image = load_img("Images/GAME_NAME.png")
-# w, h = game_name_image.get_size()
 game_name_image = pg.transform.smoothscale(game_name_image, (600, 200))
 game_name_rect = game_name_image.get_rect(midbottom=(WIDTH // 2, button_play.rect.top - 60))
 
 wasted_image = pg.image.load("Images/WASTED.png").convert_alpha()
 wasted_image = pg.transform.scale(wasted_image, (WIDTH, HEIGHT))
 
-
+mission_passed_image = pg.image.load("Images/PASSED(won).png").convert_alpha()
+mission_passed_rect= mission_passed_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
 
 clock = pg.time.Clock()
@@ -106,7 +106,7 @@ while True:
                         if cell.is_mined == True and cell.cell_state == "opened":
                             game_screen_state = "lost"
                             medium_game_board.mark_all_mines_on_lost()
-                elif button_restart_lost_game.is_clicked(ev.pos):
+                elif button_restart_game.is_clicked(ev.pos):
                     medium_game_board = Board(15, 15, 40, 35)
                     game_screen_state = 'ongoing'
 
@@ -142,7 +142,14 @@ while True:
             screen.blit(overlay, (0, 0))
             screen.blit(wasted_image, (0, 0))
             button_back_menu.draw(screen)
-            button_restart_lost_game.draw(screen)
+            button_restart_game.draw(screen)
+
+        elif game_screen_state == "won":
+            screen.blit(overlay, (0, 0))
+            screen.blit(mission_passed_image, mission_passed_rect)
+            button_back_menu.draw(screen)
+            button_restart_game.draw(screen)
+
 
 
 
