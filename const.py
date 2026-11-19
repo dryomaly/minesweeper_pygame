@@ -21,6 +21,7 @@ CELL_NUMS_COLOR = {
 }
 
 BLACK_FONT = pg.Color("#000000")
+BTN_RESTART_BG = pg.Color("#C0C0C0")
 
 DARKENING_BG = pg.Color("#000000")
 PLAY_BG_COLOR = pg.Color("#00b0eb")
