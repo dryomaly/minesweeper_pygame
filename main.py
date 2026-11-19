@@ -23,8 +23,9 @@ overlay = pg.Surface((WIDTH, HEIGHT))
 overlay.fill(DARKENING_BG)
 overlay.set_alpha(120)
 
-
+# 'menu', 'settings', 'game'
 screen_state = 'menu'
+# 'ongoing', 'lost', 'won'
 game_screen_state = 'ongoing'
 
 
@@ -60,6 +61,8 @@ game_name_image = load_img("Images/GAME_NAME.png")
 game_name_image = pg.transform.smoothscale(game_name_image, (600, 200))
 game_name_rect = game_name_image.get_rect(midbottom=(WIDTH // 2, button_play.rect.top - 60))
 
+wasted_image = pg.image.load("Images/WASTED.png").convert_alpha()
+wasted_image = pg.transform.scale(wasted_image, (WIDTH, HEIGHT))
 
 
 
@@ -89,18 +92,19 @@ while True:
             elif screen_state == 'game':
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
-                else:
+                elif game_screen_state == "ongoing":
                     cell = medium_game_board.clicked_cell(ev.pos)
                     if cell:
                         cell.open()
                         if cell.is_mined == True and cell.cell_state == "opened":
-                            game_screen_state = "lose"
+                            game_screen_state = "lost"
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
+
         elif ev.type == pg.MOUSEBUTTONDOWN and ev.button == 3:
-            if screen_state == 'game':
+            if screen_state == 'game' and game_screen_state == "ongoing":
                 cell = medium_game_board.clicked_cell(ev.pos)
                 if cell:
                     cell.toggle_flag()
@@ -122,6 +126,12 @@ while True:
         medium_game_board.draw(screen)
         # hard_game_board.draw(screen)    
         button_back_menu.draw(screen)
+        if game_screen_state == "lost":
+            screen.blit(overlay, (0, 0))
+            screen.blit(wasted_image, (0, 0))
+            button_back_menu.draw(screen)
+
+
 
     elif screen_state == 'settings':
         screen.fill((40, 40, 40))
