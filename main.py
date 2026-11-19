@@ -98,6 +98,7 @@ while True:
                         cell.open()
                         if cell.is_mined == True and cell.cell_state == "opened":
                             game_screen_state = "lost"
+                            medium_game_board.mark_all_mines_on_lost()
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
@@ -126,6 +127,7 @@ while True:
         medium_game_board.draw(screen)
         # hard_game_board.draw(screen)    
         button_back_menu.draw(screen)
+
         if game_screen_state == "lost":
             screen.blit(overlay, (0, 0))
             screen.blit(wasted_image, (0, 0))
