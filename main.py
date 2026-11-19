@@ -24,8 +24,8 @@ overlay.fill(DARKENING_BG)
 overlay.set_alpha(120)
 
 
-
 screen_state = 'menu'
+game_screen_state = 'ongoing'
 
 
 button_play = Button((WIDTH - 250) // 2, 300, 250, 80, 
@@ -93,6 +93,8 @@ while True:
                     cell = medium_game_board.clicked_cell(ev.pos)
                     if cell:
                         cell.open()
+                        if cell.is_mined == True and cell.cell_state == "opened":
+                            game_screen_state = "lose"
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
