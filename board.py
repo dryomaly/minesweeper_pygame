@@ -118,3 +118,9 @@ class Board:
         for line in self.cells:
             for cell in line:
                 cell.draw(screen)
+
+    def mark_all_mines_on_lost(self):
+        for line in self.cells:
+            for cell in line:
+                if cell.is_mined == True:
+                    cell.open()
