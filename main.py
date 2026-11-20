@@ -107,7 +107,7 @@ while True:
                     if cell_clicked:
                         count_opened_cells = 0
                         safe_cells = (medium_game_board.rows * medium_game_board.cols) - medium_game_board.mines
-                        cell_clicked.open()
+                        medium_game_board.open_empty_cells(cell_clicked)
 
                         if cell_clicked.is_mined == True and cell_clicked.cell_state == "opened":
                             game_screen_state = "lost"
