@@ -118,6 +118,23 @@ class Board:
             return self.cells[row][col]
         return None
 
+    # Рекурсия / ПРОВЕРИТЬ НА СВЕЖУЮ ГОЛОВУ 
+    def open_empty_cells(self, cell):
+        if cell.cell_state != "closed":
+            return None
+        cell.open()
+
+        if cell.mines_around > 0 or cell.is_mined == True:
+            return None
+
+        for nr in (-1, 0, 1):
+            for nc in (-1, 0, 1):
+                nrow = cell.row + nr
+                ncol = cell.col + nc
+                if 0 <= nrow < self.rows and 0 <= ncol < self.cols:
+                    self.open_empty_cells(self.cells[nrow][ncol])
+                    
+
     def draw(self, screen):
         for line in self.cells:
             for cell in line:
