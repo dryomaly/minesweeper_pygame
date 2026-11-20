@@ -97,15 +97,31 @@ while True:
                     screen_state = 'settings'
 
             elif screen_state == 'game':
+
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
+
                 elif game_screen_state == "ongoing":
-                    cell = medium_game_board.clicked_cell(ev.pos)
-                    if cell:
-                        cell.open()
-                        if cell.is_mined == True and cell.cell_state == "opened":
+                    cell_clicked = medium_game_board.clicked_cell(ev.pos)
+
+                    if cell_clicked:
+                        count_opened_cells = 0
+                        safe_cells = (medium_game_board.rows * medium_game_board.cols) - medium_game_board.mines
+                        cell_clicked.open()
+
+                        if cell_clicked.is_mined == True and cell_clicked.cell_state == "opened":
                             game_screen_state = "lost"
                             medium_game_board.mark_all_mines_on_lost()
+
+                        for line in medium_game_board.cells:
+                            for cell in line:
+                                if cell.is_mined == False and cell.cell_state == "opened":
+                                    count_opened_cells += 1
+
+                        if count_opened_cells == safe_cells:
+                            game_screen_state = "won"
+                            medium_game_board.mark_all_mines_on_won()
+         
                 elif button_restart_game.is_clicked(ev.pos):
                     medium_game_board = Board(15, 15, 40, 35)
                     game_screen_state = 'ongoing'
