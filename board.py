@@ -124,3 +124,9 @@ class Board:
             for cell in line:
                 if cell.is_mined == True:
                     cell.open()
+
+    def mark_all_mines_on_won(self):
+        for line in self.cells:
+            for cell in line:
+                if cell.is_mined == True:
+                    cell.cell_state = "flagged"
