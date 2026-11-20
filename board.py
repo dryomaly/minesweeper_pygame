@@ -7,6 +7,8 @@ class Cell:
     def __init__(self, x, y,
                  cell_size,
                  flag_image,
+                 row,
+                 col,
                  radius=3,
                  ):
         self.rect = pg.Rect(x, y, cell_size, cell_size) # ХИТБОКС 
@@ -14,6 +16,8 @@ class Cell:
         self.mines_around = 0
         self.cell_state = 'closed'
         self.flag_image = flag_image
+        self.row = row
+        self.col = col
         self.radius = radius
         self.font = pg.font.SysFont('Arial', cell_size // 2, True)
 
@@ -72,7 +76,7 @@ class Board:
             for col in range(cols):
                 cell_x = self.x + col * cell_size
                 cell_y = self.y + row * cell_size
-                line.append(Cell(cell_x, cell_y, cell_size, self.flag_image))
+                line.append(Cell(cell_x, cell_y, cell_size, self.flag_image, row, col))
             self.cells.append(line)
 
         self.placing_mines()
