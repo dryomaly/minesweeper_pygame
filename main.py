@@ -71,6 +71,7 @@ wasted_image = pg.image.load("Images/WASTED.png").convert_alpha()
 wasted_image = pg.transform.scale(wasted_image, (WIDTH, HEIGHT))
 
 mission_passed_image = pg.image.load("Images/PASSED(won).png").convert_alpha()
+mission_passed_image = pg.transform.scale(mission_passed_image, (696, 204))
 mission_passed_rect= mission_passed_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
 
