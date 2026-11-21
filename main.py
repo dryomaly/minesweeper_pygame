@@ -32,7 +32,6 @@ screen_state = 'menu'
 # 'ongoing', 'lost', 'won'
 game_screen_state = 'ongoing'
 
-start = pg.time.get_ticks()
 timer = 0
 is_timer_going = False
 timer_font = pg.font.SysFont("Arial Black", 28)
@@ -73,7 +72,7 @@ button_restart_game = Button((WIDTH - 200) // 2, 500, 200, 65,
 
 bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
 
-game_name_image = load_img("Images/GAME_NAME.png")
+game_name_image = pg.image.load("Images/GAME_NAME.png").convert_alpha()
 game_name_image = pg.transform.smoothscale(game_name_image, (600, 200))
 game_name_rect = game_name_image.get_rect(midbottom=(WIDTH // 2, button_play.rect.top - 60))
 
@@ -92,8 +91,6 @@ while True:
 
     # 1. СОБЫТИЯ
     for ev in pg.event.get():
-        # mouse = pg.mouse.get_pos()
-
         if ev.type == pg.QUIT:
             pg.quit()
             exit()

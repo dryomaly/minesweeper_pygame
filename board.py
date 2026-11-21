@@ -131,7 +131,7 @@ class Board:
             return self.cells[row][col]
         return None
 
-    # Рекурсия / ПРОВЕРИТЬ НА СВЕЖУЮ ГОЛОВУ 
+    # Рекурсивное открытие пустых клеток
     def open_empty_cells(self, cell):
         if cell.cell_state != "closed":
             return None
