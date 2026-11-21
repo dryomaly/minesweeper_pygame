@@ -6,8 +6,10 @@ HEIGHT = 720
 FPS = 60
 
 # Цветастики
-OPENED_CELL = pg.Color("#fff59e")
-CLOSED_CELL = pg.Color("#2a912a")
+OPENED_CELL_1 = pg.Color("#fff59e")
+OPENED_CELL_2 = pg.Color("#ebdd70")
+CLOSED_CELL_1 = pg.Color("#2a912a")
+CLOSED_CELL_2 = pg.Color("#278427")
 MINE_CELL = pg.Color("#000000")
 CELL_NUMS_COLOR = {
     1: "#2B2BD1",
