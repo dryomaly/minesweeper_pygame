@@ -19,7 +19,7 @@ class Cell:
         self.row = row
         self.col = col
         self.radius = radius
-        self.font = pg.font.SysFont('Arial', cell_size // 2, True)
+        self.font = pg.font.SysFont('Arial Black', cell_size // 2)
 
     
     def open(self):
