@@ -33,13 +33,20 @@ class Cell:
             self.cell_state = 'closed'
     
     def draw(self, screen):
-        if self.cell_state == 'opened' and self.is_mined == True:
+        rowcol_sum = (self.row + self.col) % 2
+        if self.cell_state == "opened" and self.is_mined == True:
             cell_color = MINE_CELL
-        elif self.cell_state == 'opened':
-            cell_color = OPENED_CELL
-        elif self.cell_state == 'closed' or self.cell_state == 'flagged':
-            cell_color = CLOSED_CELL
-
+        elif self.cell_state == "opened":
+            if self.mines_around == 0:
+                cell_color = OPENED_CELL_1
+            else:
+                cell_color = OPENED_CELL_2
+        elif self.cell_state == "closed" or self.cell_state == "flagged":
+            if rowcol_sum != 0:
+                cell_color = CLOSED_CELL_1
+            else:
+                cell_color = CLOSED_CELL_2
+                
         visible_rect = self.rect.inflate(-2, -2) # видимая часть ХИТБОКСА
         pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)
         
