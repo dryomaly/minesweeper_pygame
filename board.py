@@ -33,7 +33,7 @@ class Cell:
             self.cell_state = 'closed'
     
     def draw(self, screen):
-        rowcol_sum = (self.row + self.col) % 2
+        rowcol_sum = self.row + self.col
         if self.cell_state == "opened" and self.is_mined == True:
             cell_color = COLOR_MINE_CELL
         elif self.cell_state == "opened":
@@ -42,7 +42,7 @@ class Cell:
             else:
                 cell_color = COLOR_OPENED_CELL_NUMBER
         elif self.cell_state == "closed" or self.cell_state == "flagged":
-            if rowcol_sum != 0:
+            if rowcol_sum % 2 != 0:
                 cell_color = COLOR_CLOSED_CELL_LIGHT
             else:
                 cell_color = COLOR_CLOSED_CELL_DARK
