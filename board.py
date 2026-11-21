@@ -43,9 +43,9 @@ class Cell:
                 cell_color = COLOR_OPENED_CELL_NUMBER
         elif self.cell_state == "closed" or self.cell_state == "flagged":
             if rowcol_sum != 0:
-                cell_color = COLOR_CLOSED_CELL_1
+                cell_color = COLOR_CLOSED_CELL_LIGHT
             else:
-                cell_color = COLOR_CLOSED_CELL_2
+                cell_color = COLOR_CLOSED_CELL_DARK
 
         visible_rect = self.rect.inflate(-2, -2) # видимая часть ХИТБОКСА
         pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)

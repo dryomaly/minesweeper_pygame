@@ -20,7 +20,7 @@ medium_game_board = Board(15, 15, 40, 35)
 # hard_game_board = Board(20, 20, 40) # Выходит за рамки - переделать
 
 overlay = pg.Surface((WIDTH, HEIGHT))
-overlay.fill(DARKENING_BG)
+overlay.fill(COLOR_DARKENING_BG)
 overlay.set_alpha(120)
 
 # 'menu', 'settings', 'game'
