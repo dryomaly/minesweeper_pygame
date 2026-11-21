@@ -13,8 +13,9 @@ class Cell:
                  ):
         self.rect = pg.Rect(x, y, cell_size, cell_size) # ХИТБОКС 
         self.is_mined = False
-        self.mines_around = 0
+        self.is_clicked = False
         self.cell_state = 'closed'
+        self.mines_around = 0
         self.flag_image = flag_image
         self.row = row
         self.col = col
@@ -35,7 +36,10 @@ class Cell:
     def draw(self, screen):
         rowcol_sum = self.row + self.col
         if self.cell_state == "opened" and self.is_mined == True:
-            cell_color = COLOR_MINE_CELL
+            if self.is_clicked == True:
+                cell_color = COLOR_MINE_CELL_TOUCHED
+            else:
+                cell_color = COLOR_MINE_CELL
         elif self.cell_state == "opened":
             if self.mines_around == 0:
                 cell_color = COLOR_OPENED_CELL_EMPTY
@@ -46,6 +50,8 @@ class Cell:
                 cell_color = COLOR_CLOSED_CELL_LIGHT
             else:
                 cell_color = COLOR_CLOSED_CELL_DARK
+        else:
+            return None
 
         visible_rect = self.rect.inflate(-2, -2) # видимая часть ХИТБОКСА
         pg.draw.rect(screen, cell_color, visible_rect, border_radius=self.radius)
