@@ -14,6 +14,7 @@ def load_img(path, size=None):
 
 pg.display.set_caption('Сапёрность')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
+clock = pg.time.Clock()
 
 easy_game_board = Board(8, 8, 40, 10)
 medium_game_board = Board(15, 15, 40, 35)
@@ -23,10 +24,19 @@ overlay = pg.Surface((WIDTH, HEIGHT))
 overlay.fill(COLOR_DARKENING_BG)
 overlay.set_alpha(120)
 
+timer_plate = pg.Rect(0, 0, 260, 60)
+timer_plate.bottomleft = (20, HEIGHT - 20)
+
 # 'menu', 'settings', 'game'
 screen_state = 'menu'
 # 'ongoing', 'lost', 'won'
 game_screen_state = 'ongoing'
+
+start = pg.time.get_ticks()
+timer = 0
+is_timer_going = False
+timer_font = pg.font.SysFont("Arial Black", 28)
+
 
 
 button_play = Button((WIDTH - 250) // 2, 300, 250, 80, 
@@ -75,12 +85,13 @@ mission_passed_image = pg.transform.scale(mission_passed_image, (696, 204))
 mission_passed_rect= mission_passed_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
 
-clock = pg.time.Clock()
-
 while True:
+    dt = clock.tick(FPS)
+    if is_timer_going and screen_state == "game" and game_screen_state == "ongoing":
+        timer += dt
+
     # 1. СОБЫТИЯ
     for ev in pg.event.get():
-
         # mouse = pg.mouse.get_pos()
 
         if ev.type == pg.QUIT:
@@ -97,16 +108,16 @@ while True:
                 elif button_settings.is_clicked(ev.pos):
                     screen_state = 'settings'
 
-            elif screen_state == 'game':
-
+            elif screen_state == 'game':                
                 if button_back_menu.is_clicked(ev.pos):
                     screen_state = 'menu'
 
                 elif game_screen_state == "ongoing":
                     cell_clicked = medium_game_board.clicked_cell(ev.pos)
-
+                    
                     if cell_clicked:
                         count_opened_cells = 0
+                        is_timer_going = True
                         safe_cells = (medium_game_board.rows * medium_game_board.cols) - medium_game_board.mines
                         medium_game_board.open_empty_cells(cell_clicked)
 
@@ -127,6 +138,8 @@ while True:
                 elif button_restart_game.is_clicked(ev.pos):
                     medium_game_board = Board(15, 15, 40, 35)
                     game_screen_state = 'ongoing'
+                    timer = 0
+                    is_timer_going = False
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
@@ -136,6 +149,7 @@ while True:
             if screen_state == 'game' and game_screen_state == "ongoing":
                 cell = medium_game_board.clicked_cell(ev.pos)
                 if cell:
+                    is_timer_going = True
                     cell.toggle_flag()
 
 
@@ -153,7 +167,8 @@ while True:
         screen.fill(COLOR_GAME_BG)
         # easy_game_board.draw(screen)
         medium_game_board.draw(screen)
-        # hard_game_board.draw(screen)    
+        # hard_game_board.draw(screen)
+
         button_back_menu.draw(screen)
 
         if game_screen_state == "lost":
@@ -168,9 +183,12 @@ while True:
             button_back_menu.draw(screen)
             button_restart_game.draw(screen)
 
-
-
-
+        pg.draw.rect(screen, COLOR_TIMER_PLATE, timer_plate, border_radius=8)
+        timer_str = f"Время: {timer / 1000:.3f}"
+        timer_text = timer_font.render(timer_str, False, COLOR_BLACK_FONT)
+        timer_text_rect = timer_text.get_rect(midleft=(timer_plate.left + 15, timer_plate.centery))
+        screen.blit(timer_text, timer_text_rect)
+        
     elif screen_state == 'settings':
         screen.fill((40, 40, 40))
         button_back_menu.draw(screen)
@@ -178,4 +196,3 @@ while True:
 
     # 3. ПОКАЗАТЬ КАДР
     pg.display.flip()
-    clock.tick(FPS)
