@@ -31,32 +31,32 @@ game_screen_state = 'ongoing'
 
 button_play = Button((WIDTH - 250) // 2, 300, 250, 80, 
                      'ИГРАТЬ',
-                     pg.Color('black'),
-                     pg.Color(127, 255, 0),
+                     COLOR_BLACK_FONT,
+                     COLOR_PLAY_BUTTON,
                      pg.font.SysFont('Arial', 28)
                     )
 button_settings = Button((WIDTH - 200) // 2, 410, 200, 65, 
                      'настройки',
-                     pg.Color('black'),
-                     pg.Color('grey'),
+                     COLOR_BLACK_FONT,
+                     COLOR_SETTINGS_BUTTON,
                      pg.font.SysFont('Arial', 28)
                     )
 button_exit = Button((WIDTH - 160) // 2, 600, 160, 40, 
                      'ВЫХОД',
-                     pg.Color('black'),
-                     pg.Color(255, 69, 0),
+                     COLOR_BLACK_FONT,
+                     COLOR_EXIT_BUTTON,
                      pg.font.SysFont('Arial', 18)
                     )
 button_back_menu = Button(20, 20, 120, 60,
                      '< Меню',
-                     pg.Color('black'),
-                     pg.Color('grey'),
+                     COLOR_BLACK_FONT,
+                     COLOR_BACK_BUTTON,
                      pg.font.SysFont('Arial', 28, True)
                      )
 button_restart_game = Button((WIDTH - 200) // 2, 500, 200, 65,
                      'НОВАЯ ИГРА',
-                     BLACK_FONT,
-                     BTN_RESTART_BG,
+                     COLOR_BLACK_FONT,
+                     COLOR_RESTART_BUTTON_BG,
                      pg.font.SysFont('Arial', 28, True)
                      )
 
@@ -149,7 +149,7 @@ while True:
         button_exit.draw(screen)
 
     elif screen_state == 'game':
-        screen.fill(PLAY_BG_COLOR)
+        screen.fill(COLOR_GAME_BG)
         # easy_game_board.draw(screen)
         medium_game_board.draw(screen)
         # hard_game_board.draw(screen)    
