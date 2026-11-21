@@ -10,9 +10,9 @@ OPENED_CELL = pg.Color("#fff59e")
 CLOSED_CELL = pg.Color("#2a912a")
 MINE_CELL = pg.Color("#000000")
 CELL_NUMS_COLOR = {
-    1: "#2323FE",
-    2: "#2DEC2D",
-    3: '#FF0000',
+    1: "#2B2BD1",
+    2: "#1E931E",
+    3: "#EE1616",
     4: "#00008A",
     5: "#630101",
     6: "#007A67",
