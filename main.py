@@ -111,6 +111,7 @@ while True:
                         medium_game_board.open_empty_cells(cell_clicked)
 
                         if cell_clicked.is_mined == True and cell_clicked.cell_state == "opened":
+                            cell_clicked.is_clicked = True
                             game_screen_state = "lost"
                             medium_game_board.mark_all_mines_on_lost()
 
