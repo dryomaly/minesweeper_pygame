@@ -1,6 +1,6 @@
 <div align="center">
 
-# <a href="https://github.com/dryomaly/minesweeper_pygame">Саперность</a>
+# 💣 <a href="https://github.com/dryomaly/minesweeper_pygame">Саперность</a> 🚩
 
 </div>
 
