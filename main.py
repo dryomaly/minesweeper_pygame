@@ -16,7 +16,7 @@ pg.display.set_caption('Сапёрность')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
-cur_diff = MEDIUM
+cur_diff = EASY
 current_board = Board(cur_diff[0], cur_diff[1], cur_diff[2], cur_diff[3])
 
 overlay = pg.Surface((WIDTH, HEIGHT))
@@ -68,6 +68,9 @@ button_restart_game = Button((WIDTH - 200) // 2, 500, 200, 65,
                      COLOR_RESTART_BUTTON_BG,
                      pg.font.SysFont('Arial', 28, True)
                      )
+button_switch_difficulty_EASY = Button(785, 315, 300, 50, "Сложность: ЛЕГКАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Arial", 22, True))
+button_switch_difficulty_MEDIUM = Button(785, 315, 300, 50, "Сложность: СРЕДНЯЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Arial", 22, True))
+button_switch_difficulty_HARD = Button(785, 315, 300, 50, "Сложность: СЛОЖНАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Arial", 22, True))
 
 
 bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
@@ -112,6 +115,15 @@ while True:
                     screen_state = 'game'
                 elif button_settings.is_clicked(ev.pos):
                     screen_state = 'settings'
+                
+                elif button_switch_difficulty_EASY.is_clicked(ev.pos):
+                    if cur_diff == EASY:
+                        cur_diff = MEDIUM
+                    elif cur_diff == MEDIUM:
+                        cur_diff = HARD
+                    else:
+                        cur_diff = EASY
+                    new_game()
 
             elif screen_state == 'game':                
                 if button_back_menu.is_clicked(ev.pos):
@@ -160,16 +172,21 @@ while True:
         screen.blit(bg_image_1, (0, 0))
         screen.blit(overlay, (0, 0))
         screen.blit(game_name_image, game_name_rect)
+
         # КНОПКИ
         button_play.draw(screen)
         button_settings.draw(screen)
         button_exit.draw(screen)
+        if cur_diff == EASY:
+            button_switch_difficulty_EASY.draw(screen)
+        elif cur_diff == MEDIUM:
+            button_switch_difficulty_MEDIUM.draw(screen)
+        elif cur_diff == HARD:
+            button_switch_difficulty_HARD.draw(screen)
 
     elif screen_state == 'game':
         screen.fill(COLOR_GAME_BG)
-        # easy_game_board.draw(screen)
         current_board.draw(screen)
-        # hard_game_board.draw(screen)
 
         button_back_menu.draw(screen)
 
