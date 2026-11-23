@@ -16,11 +16,8 @@ pg.display.set_caption('Сапёрность')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
-easy_game_board = Board(8, 8, 40, 10)
-medium_game_board = Board(15, 15, 40, 35)
-# hard_game_board = Board(20, 20, 40) # Выходит за рамки - переделать
-
-current_board = medium_game_board
+cur_diff = MEDIUM
+current_board = Board(cur_diff[0], cur_diff[1], cur_diff[2], cur_diff[3])
 
 overlay = pg.Surface((WIDTH, HEIGHT))
 overlay.fill(COLOR_DARKENING_BG)
@@ -135,7 +132,7 @@ while True:
                             current_board.mark_all_mines_on_won()
          
                 elif button_restart_game.is_clicked(ev.pos):
-                    current_board = Board(15, 15, 40, 35)
+                    current_board = Board(cur_diff[0], cur_diff[1], cur_diff[2], cur_diff[3])
                     game_screen_state = 'ongoing'
                     timer = 0
                     is_timer_going = False
