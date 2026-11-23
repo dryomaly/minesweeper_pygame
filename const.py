@@ -5,6 +5,11 @@ WIDTH = 1280
 HEIGHT = 720
 FPS = 60
 
+# Игровые сложности (rows, cols, cell_size, mines)
+EASY = (8, 10, 60, 10)
+MEDIUM = (11, 16, 50, 35)
+# HARD = ()
+
 # Цветастики
 COLOR_OPENED_CELL_EMPTY = pg.Color("#fff59e")
 COLOR_OPENED_CELL_NUMBER = pg.Color("#ebdd70")
