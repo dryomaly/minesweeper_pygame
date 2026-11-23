@@ -20,6 +20,8 @@ easy_game_board = Board(8, 8, 40, 10)
 medium_game_board = Board(15, 15, 40, 35)
 # hard_game_board = Board(20, 20, 40) # Выходит за рамки - переделать
 
+current_board = medium_game_board
+
 overlay = pg.Surface((WIDTH, HEIGHT))
 overlay.fill(COLOR_DARKENING_BG)
 overlay.set_alpha(120)
@@ -110,30 +112,30 @@ while True:
                     screen_state = 'menu'
 
                 elif game_screen_state == "ongoing":
-                    cell_clicked = medium_game_board.clicked_cell(ev.pos)
+                    cell_clicked = current_board.clicked_cell(ev.pos)
                     
                     if cell_clicked:
                         count_opened_cells = 0
                         is_timer_going = True
-                        safe_cells = (medium_game_board.rows * medium_game_board.cols) - medium_game_board.mines
-                        medium_game_board.open_empty_cells(cell_clicked)
+                        safe_cells = (current_board.rows * current_board.cols) - current_board.mines
+                        current_board.open_empty_cells(cell_clicked)
 
                         if cell_clicked.is_mined == True and cell_clicked.cell_state == "opened":
                             cell_clicked.is_clicked = True
                             game_screen_state = "lost"
-                            medium_game_board.mark_all_mines_on_lost()
+                            current_board.mark_all_mines_on_lost()
 
-                        for line in medium_game_board.cells:
+                        for line in current_board.cells:
                             for cell in line:
                                 if cell.is_mined == False and cell.cell_state == "opened":
                                     count_opened_cells += 1
 
                         if count_opened_cells == safe_cells:
                             game_screen_state = "won"
-                            medium_game_board.mark_all_mines_on_won()
+                            current_board.mark_all_mines_on_won()
          
                 elif button_restart_game.is_clicked(ev.pos):
-                    medium_game_board = Board(15, 15, 40, 35)
+                    current_board = Board(15, 15, 40, 35)
                     game_screen_state = 'ongoing'
                     timer = 0
                     is_timer_going = False
@@ -144,7 +146,7 @@ while True:
 
         elif ev.type == pg.MOUSEBUTTONDOWN and ev.button == 3:
             if screen_state == 'game' and game_screen_state == "ongoing":
-                cell = medium_game_board.clicked_cell(ev.pos)
+                cell = current_board.clicked_cell(ev.pos)
                 if cell:
                     is_timer_going = True
                     cell.toggle_flag()
@@ -163,7 +165,7 @@ while True:
     elif screen_state == 'game':
         screen.fill(COLOR_GAME_BG)
         # easy_game_board.draw(screen)
-        medium_game_board.draw(screen)
+        current_board.draw(screen)
         # hard_game_board.draw(screen)
 
         button_back_menu.draw(screen)
@@ -182,7 +184,7 @@ while True:
 
         pg.draw.rect(screen, COLOR_TIMER_PLATE, timer_plate, border_radius=8)
         timer_str = f"Время: {timer / 1000:.3f}"
-        timer_text = timer_font.render(timer_str, False, COLOR_BLACK_FONT)
+        timer_text = timer_font.render(timer_str, True, COLOR_BLACK_FONT)
         timer_text_rect = timer_text.get_rect(midleft=(timer_plate.left + 15, timer_plate.centery))
         screen.blit(timer_text, timer_text_rect)
         
