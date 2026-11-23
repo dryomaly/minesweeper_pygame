@@ -28,6 +28,7 @@ timer_plate.bottomleft = (20, HEIGHT - 20)
 
 # 'menu', 'settings', 'game'
 screen_state = 'menu'
+
 # 'ongoing', 'lost', 'won'
 game_screen_state = 'ongoing'
 
@@ -83,6 +84,14 @@ mission_passed_image = pg.transform.scale(mission_passed_image, (696, 204))
 mission_passed_rect= mission_passed_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
 
 
+def new_game():
+    global current_board, game_screen_state, timer, is_timer_going
+    current_board = Board(cur_diff[0], cur_diff[1], cur_diff[2], cur_diff[3])
+    game_screen_state = "ongoing"
+    timer = 0
+    is_timer_going = False
+
+
 while True:
     dt = clock.tick(FPS)
     if is_timer_going and screen_state == "game" and game_screen_state == "ongoing":
@@ -132,10 +141,7 @@ while True:
                             current_board.mark_all_mines_on_won()
          
                 elif button_restart_game.is_clicked(ev.pos):
-                    current_board = Board(cur_diff[0], cur_diff[1], cur_diff[2], cur_diff[3])
-                    game_screen_state = 'ongoing'
-                    timer = 0
-                    is_timer_going = False
+                    new_game()
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
