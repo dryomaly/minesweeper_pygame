@@ -23,7 +23,7 @@ class Cell:
         self.font = pg.font.SysFont('Arial Black', cell_size // 2)
 
     
-    def open(self):
+    def open_cell(self):
         if self.cell_state == 'closed':
             self.cell_state = 'opened'
 
@@ -135,7 +135,7 @@ class Board:
     def open_empty_cells(self, cell):
         if cell.cell_state != "closed":
             return None
-        cell.open()
+        cell.open_cell()
 
         if cell.mines_around > 0 or cell.is_mined == True:
             return None
@@ -157,7 +157,7 @@ class Board:
         for line in self.cells:
             for cell in line:
                 if cell.is_mined == True:
-                    cell.open()
+                    cell.open_cell()
 
     def mark_all_mines_on_won(self):
         for line in self.cells:
