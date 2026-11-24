@@ -82,8 +82,8 @@ class Board:
         self.flag_image = pg.image.load("Images/FLAG.png").convert_alpha()
         self.flag_image = pg.transform.scale(self.flag_image, (cell_size - 8, cell_size - 8))
 
-
         self.cells = []
+        
         for row in range(rows):
             line = []
             for col in range(cols):
