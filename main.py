@@ -16,6 +16,12 @@ pg.display.set_caption('Сапёрность')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
+sound_cell_click = pg.mixer.Sound("Sounds/cellClick.wav")
+sound_main_button = pg.mixer.Sound("Sounds/select.wav")
+sound_back_button = pg.mixer.Sound("Sounds/deSelect.wav")
+sound_flag_placement = pg.mixer.Sound("Sounds/flagPlacement.wav")
+sound_boom = pg.mixer.Sound("Sounds/boom.wav")
+
 cur_diff = EASY
 current_board = Board(cur_diff[0], cur_diff[1], cur_diff[2], cur_diff[3])
 
@@ -35,7 +41,6 @@ game_screen_state = 'ongoing'
 timer = 0
 is_timer_going = False
 timer_font = pg.font.SysFont("Arial Black", 28)
-
 
 
 button_play = Button((WIDTH - 250) // 2, 300, 250, 80, 
@@ -112,8 +117,10 @@ while True:
                     pg.quit()
                     exit()
                 elif button_play.is_clicked(ev.pos):
+                    sound_main_button.play()
                     screen_state = 'game'
                 elif button_settings.is_clicked(ev.pos):
+                    sound_main_button.play()
                     screen_state = 'settings'
                 
                 elif button_switch_difficulty_EASY.is_clicked(ev.pos):
@@ -127,6 +134,7 @@ while True:
 
             elif screen_state == 'game':                
                 if button_back_menu.is_clicked(ev.pos):
+                    sound_back_button.play()
                     screen_state = 'menu'
 
                 elif game_screen_state == "ongoing":
@@ -136,13 +144,17 @@ while True:
                         count_opened_cells = 0
                         is_timer_going = True
                         safe_cells = (current_board.rows * current_board.cols) - current_board.mines
+                        was_closed = cell_clicked.cell_state == "closed"
                         current_board.open_empty_cells(cell_clicked)
 
                         if cell_clicked.is_mined == True and cell_clicked.cell_state == "opened":
+                            sound_boom.play()
                             cell_clicked.is_clicked = True
                             game_screen_state = "lost"
                             current_board.mark_all_mines_on_lost()
-
+                        elif was_closed:
+                            sound_cell_click.play()
+                        
                         for line in current_board.cells:
                             for cell in line:
                                 if cell.is_mined == False and cell.cell_state == "opened":
@@ -153,16 +165,20 @@ while True:
                             current_board.mark_all_mines_on_won()
          
                 elif button_restart_game.is_clicked(ev.pos):
+                    sound_main_button.play()
                     new_game()
 
             elif screen_state == 'settings':
                 if button_back_menu.is_clicked(ev.pos):
+                    sound_back_button.play()
                     screen_state = 'menu'
 
         elif ev.type == pg.MOUSEBUTTONDOWN and ev.button == 3:
             if screen_state == 'game' and game_screen_state == "ongoing":
                 cell = current_board.clicked_cell(ev.pos)
                 if cell:
+                    if cell.cell_state != "opened":
+                        sound_flag_placement.play()
                     is_timer_going = True
                     cell.toggle_flag()
 
