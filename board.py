@@ -46,10 +46,18 @@ class Cell:
             else:
                 cell_color = COLOR_OPENED_CELL_NUMBER
         elif self.cell_state == "closed" or self.cell_state == "flagged":
+            mouse_pos = pg.mouse.get_pos()
+            is_cursor_above_cell = self.rect.collidepoint(mouse_pos)
             if rowcol_sum % 2 != 0:
-                cell_color = COLOR_CLOSED_CELL_LIGHT
+                if is_cursor_above_cell:
+                    cell_color = COLOR_CLOSED_CELL_LIGHT_CURSOR
+                else:
+                    cell_color = COLOR_CLOSED_CELL_LIGHT
             else:
-                cell_color = COLOR_CLOSED_CELL_DARK
+                if is_cursor_above_cell:
+                    cell_color = COLOR_CLOSED_CELL_DARK_CURSOR
+                else:
+                    cell_color = COLOR_CLOSED_CELL_DARK
         else:
             return None
 
@@ -83,7 +91,7 @@ class Board:
         self.flag_image = pg.transform.scale(self.flag_image, (cell_size - 8, cell_size - 8))
 
         self.cells = []
-        
+
         for row in range(rows):
             line = []
             for col in range(cols):
