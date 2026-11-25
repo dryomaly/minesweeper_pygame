@@ -130,6 +130,7 @@ while True:
                         cur_diff = HARD
                     else:
                         cur_diff = EASY
+                    sound_main_button.play()
                     new_game()
 
             elif screen_state == 'game':                
