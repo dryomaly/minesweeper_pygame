@@ -8,13 +8,6 @@ from stats import load_stats, save_stats
 pg.init()
 
 
-def load_img(path, size=None):
-    image = pg.image.load(path).convert_alpha()
-    if size:
-        image = pg.transform.smoothscale(image, size)
-    return image
-
-
 def format_time(time):
     if time == None:
         return "_.___"
@@ -94,7 +87,7 @@ button_switch_difficulty_MEDIUM = Button(785, 315, 300, 50, "Сложность:
 button_switch_difficulty_HARD = Button(785, 315, 300, 50, "Сложность: СЛОЖНАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Comic Sans MS", 22, True))
 
 
-bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
+bg_image_1 = pg.image.load("Images/MENU_BG.png")
 
 game_name_image = pg.image.load("Images/GAME_NAME.png").convert_alpha()
 game_name_image = pg.transform.smoothscale(game_name_image, (600, 200))
