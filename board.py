@@ -180,3 +180,9 @@ class Board:
                 if cell.is_mined == False and cell.cell_state == "opened":
                     count += 1
         return count
+
+    def is_game_won(self):
+        safe_cells = (self.rows * self.cols) - self.mines
+        opened_cells = self.count_opened_safe_cells()
+        return safe_cells == opened_cells
+
