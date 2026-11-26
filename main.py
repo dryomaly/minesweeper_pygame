@@ -14,7 +14,7 @@ def load_img(path, size=None):
     return image
 
 
-pg.display.set_caption('Сапёрность')
+pg.display.set_caption("Сапёрность")
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 stats = load_stats()
@@ -36,10 +36,10 @@ timer_plate = pg.Rect(0, 0, 260, 60)
 timer_plate.bottomleft = (20, HEIGHT - 20)
 
 # 'menu', 'statistics', 'game'
-screen_state = 'menu'
+screen_state = "menu"
 
 # 'ongoing', 'lost', 'won'
-game_screen_state = 'ongoing'
+game_screen_state = "ongoing"
 
 timer = 0
 is_timer_going = False
@@ -47,31 +47,31 @@ timer_font = pg.font.SysFont("Arial Black", 28)
 
 
 button_play = Button((WIDTH - 250) // 2, 300, 250, 80, 
-                     'ИГРАТЬ',
+                     "ИГРАТЬ",
                      COLOR_BLACK_FONT,
                      COLOR_PLAY_BUTTON,
                      pg.font.SysFont('Arial', 28)
                     )
 button_statistics = Button((WIDTH - 200) // 2, 410, 200, 65, 
-                     'статистика',
+                     "статистика",
                      COLOR_BLACK_FONT,
                      COLOR_STATISTICS_BUTTON,
                      pg.font.SysFont('Arial', 28)
                     )
 button_exit = Button((WIDTH - 160) // 2, 600, 160, 40, 
-                     'ВЫХОД',
+                     "ВЫХОД",
                      COLOR_BLACK_FONT,
                      COLOR_EXIT_BUTTON,
                      pg.font.SysFont('Arial', 18)
                     )
 button_back_menu = Button(20, 20, 120, 60,
-                     '< Меню',
+                     "< Меню",
                      COLOR_BLACK_FONT,
                      COLOR_BACK_BUTTON,
                      pg.font.SysFont('Arial', 28, True)
                      )
 button_restart_game = Button((WIDTH - 200) // 2, 500, 200, 65,
-                     'НОВАЯ ИГРА',
+                     "НОВАЯ ИГРА",
                      COLOR_BLACK_FONT,
                      COLOR_RESTART_BUTTON_BG,
                      pg.font.SysFont('Arial', 28, True)
@@ -115,7 +115,7 @@ while True:
             exit()
         
         elif ev.type == pg.MOUSEBUTTONDOWN and ev.button == 1: # 1-левая, 2-колесико, 3-правая
-            if screen_state == 'menu':
+            if screen_state == "menu":
                 if button_exit.is_clicked(ev.pos):
                     pg.quit()
                     exit()
@@ -136,10 +136,10 @@ while True:
                     sound_main_button.play()
                     new_game()
 
-            elif screen_state == 'game':                
+            elif screen_state == "game":                
                 if button_back_menu.is_clicked(ev.pos):
                     sound_back_button.play()
-                    screen_state = 'menu'
+                    screen_state = "menu"
 
                 elif game_screen_state == "ongoing":
                     cell_clicked = current_board.clicked_cell(ev.pos)
@@ -197,7 +197,7 @@ while True:
             elif screen_state == "statistics":
                 if button_back_menu.is_clicked(ev.pos):
                     sound_back_button.play()
-                    screen_state = 'menu'
+                    screen_state = "menu"
 
         elif ev.type == pg.MOUSEBUTTONDOWN and ev.button == 3:
             if screen_state == 'game' and game_screen_state == "ongoing":
@@ -209,7 +209,7 @@ while True:
                     cell.toggle_flag()
 
 
-    if screen_state == 'menu':
+    if screen_state == "menu":
         # ФОН
         screen.blit(bg_image_1, (0, 0))
         screen.blit(overlay, (0, 0))
@@ -250,7 +250,7 @@ while True:
         timer_text_rect = timer_text.get_rect(midleft=(timer_plate.left + 15, timer_plate.centery))
         screen.blit(timer_text, timer_text_rect)
         
-    elif screen_state == 'statistics':
+    elif screen_state == "statistics":
         screen.fill((40, 40, 40))
         button_back_menu.draw(screen)
 
