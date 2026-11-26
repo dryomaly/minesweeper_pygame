@@ -55,7 +55,7 @@ game_screen_state = "ongoing"
 timer = 0
 is_timer_going = False
 
-timer_font = pg.font.SysFont("Arial Black", 28)
+timer_font = pg.font.SysFont("Comic Sans MS", 28)
 statistics_font = pg.font.SysFont("Comic Sans MS", 24)
 
 
@@ -63,35 +63,35 @@ button_play = Button((WIDTH - 250) // 2, 300, 250, 80,
                      "ИГРАТЬ",
                      COLOR_BLACK_FONT,
                      COLOR_PLAY_BUTTON,
-                     pg.font.SysFont('Arial', 28)
+                     pg.font.SysFont("Comic Sans MS", 28)
                     )
 button_statistics = Button((WIDTH - 200) // 2, 410, 200, 65, 
                      "статистика",
                      COLOR_BLACK_FONT,
                      COLOR_STATISTICS_BUTTON,
-                     pg.font.SysFont('Arial', 28)
+                     pg.font.SysFont("Comic Sans MS", 28)
                     )
 button_exit = Button((WIDTH - 160) // 2, 600, 160, 40, 
                      "ВЫХОД",
                      COLOR_BLACK_FONT,
                      COLOR_EXIT_BUTTON,
-                     pg.font.SysFont('Arial', 18)
+                     pg.font.SysFont("Comic Sans MS", 18)
                     )
 button_back_menu = Button(20, 20, 120, 60,
                      "< Меню",
                      COLOR_BLACK_FONT,
                      COLOR_BACK_BUTTON,
-                     pg.font.SysFont('Arial', 28, True)
+                     pg.font.SysFont("Comic Sans MS", 28, True)
                      )
 button_restart_game = Button((WIDTH - 200) // 2, 500, 200, 65,
                      "НОВАЯ ИГРА",
                      COLOR_BLACK_FONT,
                      COLOR_RESTART_BUTTON_BG,
-                     pg.font.SysFont('Arial', 28, True)
+                     pg.font.SysFont("Comic Sans MS", 28, True)
                      )
-button_switch_difficulty_EASY = Button(785, 315, 300, 50, "Сложность: ЛЕГКАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Arial", 22, True))
-button_switch_difficulty_MEDIUM = Button(785, 315, 300, 50, "Сложность: СРЕДНЯЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Arial", 22, True))
-button_switch_difficulty_HARD = Button(785, 315, 300, 50, "Сложность: СЛОЖНАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Arial", 22, True))
+button_switch_difficulty_EASY = Button(785, 315, 300, 50, "Сложность: ЛЕГКАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Comic Sans MS", 22, True))
+button_switch_difficulty_MEDIUM = Button(785, 315, 300, 50, "Сложность: СРЕДНЯЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Comic Sans MS", 22, True))
+button_switch_difficulty_HARD = Button(785, 315, 300, 50, "Сложность: СЛОЖНАЯ", COLOR_BLACK_FONT, COLOR_OPENED_CELL_EMPTY, pg.font.SysFont("Comic Sans MS", 22, True))
 
 
 bg_image_1 = load_img("Images/MENU_BG.png", (WIDTH, HEIGHT))
