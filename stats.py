@@ -11,9 +11,9 @@ def default_stats():
         "losses": 0,
         "opened_cells": 0,
         "best_time": {
-            "easy": None,
-            "medium": None,
-            "hard": None
+            "EASY": None,
+            "MEDIUM": None,
+            "HARD": None
         }
     }
 
