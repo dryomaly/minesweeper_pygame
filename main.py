@@ -187,7 +187,7 @@ while True:
 
                                 best = stats["best_time"][diff_name]
                                 if best == None or timer < best:
-                                    stats["best_time"][diff_name] = timer / 1000
+                                    stats["best_time"][diff_name] = timer
                             save_stats(stats)
          
                 elif button_restart_game.is_clicked(ev.pos):
