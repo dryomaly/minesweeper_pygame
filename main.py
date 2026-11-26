@@ -52,10 +52,10 @@ button_play = Button((WIDTH - 250) // 2, 300, 250, 80,
                      COLOR_PLAY_BUTTON,
                      pg.font.SysFont('Arial', 28)
                     )
-button_settings = Button((WIDTH - 200) // 2, 410, 200, 65, 
-                     'настройки',
+button_statistics = Button((WIDTH - 200) // 2, 410, 200, 65, 
+                     'статистика',
                      COLOR_BLACK_FONT,
-                     COLOR_SETTINGS_BUTTON,
+                     COLOR_STATISTICS_BUTTON,
                      pg.font.SysFont('Arial', 28)
                     )
 button_exit = Button((WIDTH - 160) // 2, 600, 160, 40, 
@@ -122,7 +122,7 @@ while True:
                 elif button_play.is_clicked(ev.pos):
                     sound_main_button.play()
                     screen_state = 'game'
-                elif button_settings.is_clicked(ev.pos):
+                elif button_statistics.is_clicked(ev.pos):
                     sound_main_button.play()
                     screen_state = 'settings'
                 
@@ -172,7 +172,7 @@ while True:
                         if game_screen_state != "ongoing":
                             stats["all_games"] += 1
                             stats["opened_cells"] += count_opened_cells
-                            
+
                             if game_screen_state == "lost":
                                 stats["losses"] += 1
                             else:
@@ -217,7 +217,7 @@ while True:
 
         # КНОПКИ
         button_play.draw(screen)
-        button_settings.draw(screen)
+        button_statistics.draw(screen)
         button_exit.draw(screen)
         if cur_diff == EASY:
             button_switch_difficulty_EASY.draw(screen)
