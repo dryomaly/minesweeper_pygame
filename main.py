@@ -1,4 +1,5 @@
 import pygame as pg
+import getpass
 from const import *
 from ui import *
 from board import *
@@ -257,7 +258,34 @@ while True:
         
     elif screen_state == "statistics":
         screen.fill(COLOR_STATISTICS_BG)
+
+        y_of_text = statistics_plate.top + 55
+        stats_list = [
+            f"Сыграно игр: {stats['all_games']}",
+            f"Побед: {stats['wins']}",
+            f"Поражений: {stats['losses']}",
+            f"Открыто клеток: {stats['opened_cells']}",
+            "----------------------------------------------------",
+            "Лучшее время:",
+            f" - Легкая: {stats['best_time']['EASY']}",
+            f" - Средняя: {stats['best_time']['MEDIUM']}",
+            f" - Сложная: {stats['best_time']['HARD']}"
+        ]
+
         pg.draw.rect(screen, COLOR_STATISTICS_FRONT_PLATE, statistics_plate, border_radius=8)
+        
+        player_name_str = getpass.getuser()
+        player_name_text = statistics_font.render(player_name_str, True, COLOR_LIGHTYELLOW_FONT)
+        player_name_text_rect = player_name_text.get_rect(center=(statistics_plate.centerx, statistics_plate.top + 25))
+        screen.blit(player_name_text, player_name_text_rect)
+
+        for line in stats_list: 
+            stats_str = line
+            stats_text = statistics_font.render(stats_str, True, COLOR_WHITE_FONT)
+            stats_text_rect = stats_text.get_rect(topleft=(statistics_plate.left + 15, y_of_text))
+            y_of_text += 50
+            screen.blit(stats_text, stats_text_rect)
+
         button_back_menu.draw(screen)
 
 
