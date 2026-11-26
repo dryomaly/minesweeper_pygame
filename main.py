@@ -35,7 +35,7 @@ overlay.set_alpha(120)
 timer_plate = pg.Rect(0, 0, 260, 60)
 timer_plate.bottomleft = (20, HEIGHT - 20)
 
-# 'menu', 'settings', 'game'
+# 'menu', 'statistics', 'game'
 screen_state = 'menu'
 
 # 'ongoing', 'lost', 'won'
@@ -121,10 +121,10 @@ while True:
                     exit()
                 elif button_play.is_clicked(ev.pos):
                     sound_main_button.play()
-                    screen_state = 'game'
+                    screen_state = "game"
                 elif button_statistics.is_clicked(ev.pos):
                     sound_main_button.play()
-                    screen_state = 'settings'
+                    screen_state = "statistics"
                 
                 elif button_switch_difficulty_EASY.is_clicked(ev.pos):
                     if cur_diff == EASY:
@@ -194,7 +194,7 @@ while True:
                     sound_main_button.play()
                     new_game()
 
-            elif screen_state == 'settings':
+            elif screen_state == "statistics":
                 if button_back_menu.is_clicked(ev.pos):
                     sound_back_button.play()
                     screen_state = 'menu'
@@ -226,7 +226,7 @@ while True:
         elif cur_diff == HARD:
             button_switch_difficulty_HARD.draw(screen)
 
-    elif screen_state == 'game':
+    elif screen_state == "game":
         screen.fill(COLOR_GAME_BG)
         current_board.draw(screen)
 
@@ -250,7 +250,7 @@ while True:
         timer_text_rect = timer_text.get_rect(midleft=(timer_plate.left + 15, timer_plate.centery))
         screen.blit(timer_text, timer_text_rect)
         
-    elif screen_state == 'settings':
+    elif screen_state == 'statistics':
         screen.fill((40, 40, 40))
         button_back_menu.draw(screen)
 
