@@ -158,7 +158,6 @@ while True:
                     cell_clicked = current_board.clicked_cell(ev.pos)
                     
                     if cell_clicked:
-                        count_opened_cells = 0
                         is_timer_going = True
                         safe_cells = (current_board.rows * current_board.cols) - current_board.mines
                         was_closed = cell_clicked.cell_state == "closed"
@@ -172,19 +171,16 @@ while True:
 
                         elif was_closed:
                             sound_cell_click.play()
-                        
-                        for line in current_board.cells:
-                            for cell in line:
-                                if cell.is_mined == False and cell.cell_state == "opened":
-                                    count_opened_cells += 1
 
-                        if count_opened_cells == safe_cells:
+                        count_opened_safe_cells = current_board.count_opened_safe_cells()
+
+                        if count_opened_safe_cells == safe_cells:
                             game_screen_state = "won"
                             current_board.mark_all_mines_on_won()
                         
                         if game_screen_state != "ongoing":
                             stats["all_games"] += 1
-                            stats["opened_cells"] += count_opened_cells
+                            stats["opened_cells"] += count_opened_safe_cells
 
                             if game_screen_state == "lost":
                                 stats["losses"] += 1
