@@ -2,8 +2,10 @@ import pygame as pg
 from const import *
 from ui import *
 from board import *
+from stats import load_stats, save_stats
 
 pg.init()
+
 
 def load_img(path, size=None):
     image = pg.image.load(path).convert_alpha()
@@ -15,6 +17,7 @@ def load_img(path, size=None):
 pg.display.set_caption('Сапёрность')
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
+stats = load_stats()
 
 sound_cell_click = pg.mixer.Sound("Sounds/cellClick.wav")
 sound_main_button = pg.mixer.Sound("Sounds/select.wav")
@@ -153,6 +156,7 @@ while True:
                             cell_clicked.is_clicked = True
                             game_screen_state = "lost"
                             current_board.mark_all_mines_on_lost()
+
                         elif was_closed:
                             sound_cell_click.play()
                         
@@ -164,6 +168,27 @@ while True:
                         if count_opened_cells == safe_cells:
                             game_screen_state = "won"
                             current_board.mark_all_mines_on_won()
+                        
+                        if game_screen_state != "ongoing":
+                            stats["all_games"] += 1
+                            stats["opened_cells"] += count_opened_cells
+                            
+                            if game_screen_state == "lost":
+                                stats["losses"] += 1
+                            else:
+                                stats["wins"] += 1
+
+                                if cur_diff == EASY:
+                                    diff_name = "EASY"
+                                elif cur_diff == MEDIUM:
+                                    diff_name = "MEDIUM"
+                                elif cur_diff == HARD:
+                                    diff_name = "HARD"
+
+                                best = stats["best_time"][diff_name]
+                                if best == None or timer < best:
+                                    stats["best_time"][diff_name] = timer / 1000
+                            save_stats(stats)
          
                 elif button_restart_game.is_clicked(ev.pos):
                     sound_main_button.play()
