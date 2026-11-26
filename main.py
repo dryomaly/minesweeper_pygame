@@ -35,6 +35,9 @@ overlay.set_alpha(120)
 timer_plate = pg.Rect(0, 0, 260, 60)
 timer_plate.bottomleft = (20, HEIGHT - 20)
 
+statistics_plate = pg.Rect(0, 0, 550, 650)
+statistics_plate.center = (WIDTH // 2, HEIGHT // 2)
+
 # 'menu', 'statistics', 'game'
 screen_state = "menu"
 
@@ -43,7 +46,9 @@ game_screen_state = "ongoing"
 
 timer = 0
 is_timer_going = False
+
 timer_font = pg.font.SysFont("Arial Black", 28)
+statistics_font = pg.font.SysFont("Comic Sans MS", 24)
 
 
 button_play = Button((WIDTH - 250) // 2, 300, 250, 80, 
@@ -251,7 +256,8 @@ while True:
         screen.blit(timer_text, timer_text_rect)
         
     elif screen_state == "statistics":
-        screen.fill((40, 40, 40))
+        screen.fill(COLOR_STATISTICS_BG)
+        pg.draw.rect(screen, COLOR_STATISTICS_FRONT_PLATE, statistics_plate, border_radius=8)
         button_back_menu.draw(screen)
 
 
