@@ -15,6 +15,13 @@ def load_img(path, size=None):
     return image
 
 
+def format_time(time):
+    if time == None:
+        return "_.___"
+    else:
+        return f"{time / 1000:.3f}"
+
+
 pg.display.set_caption("Сапёрность")
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
@@ -251,7 +258,7 @@ while True:
             button_restart_game.draw(screen)
 
         pg.draw.rect(screen, COLOR_TIMER_PLATE, timer_plate, border_radius=8)
-        timer_str = f"Время: {timer / 1000:.3f}"
+        timer_str = f"Время: {format_time(timer)}"
         timer_text = timer_font.render(timer_str, True, COLOR_BLACK_FONT)
         timer_text_rect = timer_text.get_rect(midleft=(timer_plate.left + 15, timer_plate.centery))
         screen.blit(timer_text, timer_text_rect)
@@ -259,7 +266,7 @@ while True:
     elif screen_state == "statistics":
         screen.fill(COLOR_STATISTICS_BG)
 
-        y_of_text = statistics_plate.top + 55
+        y_of_text = statistics_plate.top + Y_STEP_FOR_STATS
         stats_list = [
             f"Сыграно игр: {stats['all_games']}",
             f"Побед: {stats['wins']}",
@@ -267,23 +274,22 @@ while True:
             f"Открыто клеток: {stats['opened_cells']}",
             "----------------------------------------------------",
             "Лучшее время:",
-            f" - Легкая: {stats['best_time']['EASY']}",
-            f" - Средняя: {stats['best_time']['MEDIUM']}",
-            f" - Сложная: {stats['best_time']['HARD']}"
+            f" - Легкая: {format_time(stats['best_time']['EASY'])} с.",
+            f" - Средняя: {format_time(stats['best_time']['MEDIUM'])} с.",
+            f" - Сложная: {format_time(stats['best_time']['HARD'])} с."
         ]
 
         pg.draw.rect(screen, COLOR_STATISTICS_FRONT_PLATE, statistics_plate, border_radius=8)
-        
+
         player_name_str = getpass.getuser()
         player_name_text = statistics_font.render(player_name_str, True, COLOR_LIGHTYELLOW_FONT)
         player_name_text_rect = player_name_text.get_rect(center=(statistics_plate.centerx, statistics_plate.top + 25))
         screen.blit(player_name_text, player_name_text_rect)
 
         for line in stats_list: 
-            stats_str = line
-            stats_text = statistics_font.render(stats_str, True, COLOR_WHITE_FONT)
+            stats_text = statistics_font.render(line, True, COLOR_WHITE_FONT)
             stats_text_rect = stats_text.get_rect(topleft=(statistics_plate.left + 15, y_of_text))
-            y_of_text += 50
+            y_of_text += Y_STEP_FOR_STATS
             screen.blit(stats_text, stats_text_rect)
 
         button_back_menu.draw(screen)
