@@ -172,3 +172,11 @@ class Board:
             for cell in line:
                 if cell.is_mined == True:
                     cell.cell_state = "flagged"
+
+    def count_opened_safe_cells(self):
+        count = 0
+        for line in self.cells:
+            for cell in line:
+                if cell.is_mined == False and cell.cell_state == "opened":
+                    count += 1
+        return count
