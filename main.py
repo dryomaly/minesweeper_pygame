@@ -159,7 +159,6 @@ while True:
                     
                     if cell_clicked:
                         is_timer_going = True
-                        safe_cells = (current_board.rows * current_board.cols) - current_board.mines
                         was_closed = cell_clicked.cell_state == "closed"
                         current_board.open_empty_cells(cell_clicked)
 
@@ -174,7 +173,7 @@ while True:
 
                         count_opened_safe_cells = current_board.count_opened_safe_cells()
 
-                        if count_opened_safe_cells == safe_cells:
+                        if current_board.is_game_won():
                             game_screen_state = "won"
                             current_board.mark_all_mines_on_won()
                         
